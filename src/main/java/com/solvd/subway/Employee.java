@@ -2,13 +2,13 @@ package com.solvd.subway;
 
 import java.time.LocalDate;
 
-public class Manager {
+public class Employee {
 
     private Long id;
     private String firstName;
     private String lastName;
     private LocalDate dob;
-    private Department department;
+    private String position;
 
     public Long getId() {
         return id;
@@ -42,11 +42,11 @@ public class Manager {
         this.dob = dob;
     }
 
-    public Department getDepartment() {
-        return department;
+    public String getPosition() {
+        return position;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

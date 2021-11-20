@@ -4,17 +4,17 @@ import java.time.LocalDate;
 
 public class Train {
 
-    private Long ID;
+    private Long id;
     private String model;
     private Integer speed;
     private LocalDate creationDate;
 
     public Long getID() {
-        return ID;
+        return id;
     }
 
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setID(Long id) {
+        this.id = id;
     }
 
     public String getModel() {

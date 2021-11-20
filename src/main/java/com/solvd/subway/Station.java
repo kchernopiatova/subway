@@ -5,7 +5,6 @@ public class Station {
     private Long id;
     private Integer number;
     private String title;
-    private Line line;
 
     public Long getId() {
         return id;
@@ -29,13 +28,5 @@ public class Station {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Line getLine() {
-        return line;
-    }
-
-    public void setLine(Line line) {
-        this.line = line;
     }
 }

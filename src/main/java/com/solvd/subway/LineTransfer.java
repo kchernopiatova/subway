@@ -3,9 +3,8 @@ package com.solvd.subway;
 public class LineTransfer {
 
     private Long id;
-    private String firstStation;
-    private Line firstLine;
-    private Line destinationLine;
+    private Station from_station;
+    private Station to_station;
 
     public Long getId() {
         return id;
@@ -15,27 +14,19 @@ public class LineTransfer {
         this.id = id;
     }
 
-    public String getFirstStation() {
-        return firstStation;
+    public Station getFrom_station() {
+        return from_station;
     }
 
-    public void setFirstStation(String firstStation) {
-        this.firstStation = firstStation;
+    public void setFrom_station(Station from_station) {
+        this.from_station = from_station;
     }
 
-    public Line getFirstLine() {
-        return firstLine;
+    public Station getTo_station() {
+        return to_station;
     }
 
-    public void setFirstLine(Line firstLine) {
-        this.firstLine = firstLine;
-    }
-
-    public Line getDestinationLine() {
-        return destinationLine;
-    }
-
-    public void setDestinationLine(Line destinationLine) {
-        this.destinationLine = destinationLine;
+    public void setTo_station(Station to_station) {
+        this.to_station = to_station;
     }
 }
