@@ -1,11 +1,13 @@
 package com.solvd.subway;
 
+import java.util.List;
+
 public class Station {
 
     private Long id;
     private Integer number;
     private String title;
-    private LineTransfer lineTransfer;
+    private List<Station> toStations;
 
     public Long getId() {
         return id;
@@ -31,11 +33,11 @@ public class Station {
         this.title = title;
     }
 
-    public LineTransfer getLineTransfer() {
-        return lineTransfer;
+    public List<Station> getToStations() {
+        return toStations;
     }
 
-    public void setLineTransfer(LineTransfer lineTransfer) {
-        this.lineTransfer = lineTransfer;
+    public void setToStations(List<Station> toStations) {
+        this.toStations = toStations;
     }
 }

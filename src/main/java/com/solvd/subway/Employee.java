@@ -9,6 +9,7 @@ public class Employee {
     private String lastName;
     private LocalDate dob;
     private String position;
+    private Address address;
 
     public Long getId() {
         return id;
@@ -48,5 +49,13 @@ public class Employee {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
