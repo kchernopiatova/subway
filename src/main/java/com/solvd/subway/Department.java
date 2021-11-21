@@ -2,9 +2,7 @@ package com.solvd.subway;
 
 import java.util.List;
 
-public enum Department {
-
-    SECURITY, ENGINEER, ACCOUNTANT, HR;
+public class Department {
 
     private Long id;
     private String title;

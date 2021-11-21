@@ -3,9 +3,7 @@ package com.solvd.subway;
 public class PaymentOption {
 
     private Long id;
-    private enum type {
-        TICKET, TRAVEL_CARD, BANK_CARD;
-    };
+    private Type type;
     private Double price;
     private Privilege privilege;
 
@@ -15,6 +13,14 @@ public class PaymentOption {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public Double getPrice() {
@@ -32,4 +38,4 @@ public class PaymentOption {
     public void setPrivilege(Privilege privilege) {
         this.privilege = privilege;
     }
-}
+};

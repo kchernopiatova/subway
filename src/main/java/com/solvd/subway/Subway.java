@@ -6,9 +6,9 @@ public class Subway {
 
     private Integer id;
     private String city;
-    private PaymentOption paymentOption;
+    private List<PaymentOption> paymentOptions;
     private List<Train> trains;
-    private List<Manager> managers;
+    private List<Department> departments;
     private List<Line> lines;
 
     public Integer getId() {
@@ -27,12 +27,12 @@ public class Subway {
         this.city = city;
     }
 
-    public PaymentOption getPaymentOption() {
-        return paymentOption;
+    public List<PaymentOption> getPaymentOptions() {
+        return paymentOptions;
     }
 
-    public void setPaymentOption(PaymentOption paymentOption) {
-        this.paymentOption = paymentOption;
+    public void setPaymentOptions(List<PaymentOption> paymentOptions) {
+        this.paymentOptions = paymentOptions;
     }
 
     public List<Train> getTrains() {
@@ -43,12 +43,12 @@ public class Subway {
         this.trains = trains;
     }
 
-    public List<Manager> getManagers() {
-        return managers;
+    public List<Department> getDepartments() {
+        return departments;
     }
 
-    public void setManagers(List<Manager> managers) {
-        this.managers = managers;
+    public void setDepartments(List<Department> departments) {
+        this.departments = departments;
     }
 
     public List<Line> getLines() {
