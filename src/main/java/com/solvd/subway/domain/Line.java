@@ -1,4 +1,4 @@
-package com.solvd.subway;
+package com.solvd.subway.domain;
 
 import java.util.List;
 
