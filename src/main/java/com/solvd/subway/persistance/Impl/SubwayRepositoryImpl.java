@@ -40,7 +40,7 @@ public class SubwayRepositoryImpl implements SubwayRepository {
         String update = "Update subways set city = ? where id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(update)) {
             String city = "Pinsk";
-            Long id = 5L;
+            long id = 5L;
 
             preparedStatement.setString(1, city);
             preparedStatement.setLong(2, id);
@@ -76,22 +76,22 @@ public class SubwayRepositoryImpl implements SubwayRepository {
                 "a.house_number as employee_house_number from subways s left join departments d on s.id = d.subway_id " +
                 "left join employees e on d.id = e.department_id left join addresses a on e.id = a.employee_id";
         Connection connection = CONNECTION_POOL.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(select)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(select)) {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Long subwayId = rs.getLong(1);
+                long subwayId = rs.getLong(1);
                 String city = rs.getString(2);
-                Long depId = rs.getLong(3);
+                long depId = rs.getLong(3);
                 String department = rs.getString(4);
-                Long employeeId = rs.getLong(5);
+                long employeeId = rs.getLong(5);
                 String firstName = rs.getString(6);
                 String lastName = rs.getString(7);
                 Date dob = rs.getDate(8);
                 String position = rs.getString(9);
-                Long addressId = rs.getLong(10);
+                long addressId = rs.getLong(10);
                 String employeeCity = rs.getString(11);
                 String employeeStreet = rs.getString(12);
-                Integer employeeHouseNumber = rs.getInt(13);
+                int employeeHouseNumber = rs.getInt(13);
 
                 System.out.println("Subway Id: " + subwayId + ", Subway city: " + city);
                 System.out.println("Department Id: " + depId + ", Department: " + department);
@@ -102,8 +102,7 @@ public class SubwayRepositoryImpl implements SubwayRepository {
 
         } catch (SQLException e) {
             throw new SelectDataException("Unable select data", e);
-        }
-        finally {
+        } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }

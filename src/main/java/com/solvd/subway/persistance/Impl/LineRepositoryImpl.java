@@ -16,7 +16,7 @@ public class LineRepositoryImpl implements LineRepository {
     public void create(Line line, Subway subway) {
         Connection connection = CONNECTION_POOL.getConnection();
         String insert = "Insert into lines(subway_id, title) values (?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setLong(1, subway.getId());
             preparedStatement.setString(2, line.getTitle());
 
@@ -27,8 +27,7 @@ public class LineRepositoryImpl implements LineRepository {
             }
         } catch (SQLException e) {
             throw new InsertDataException("Unable to insert data into lines", e);
-        }
-        finally {
+        } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }

@@ -15,7 +15,7 @@ public class AddressRepositoryImpl implements AddressRepository {
     public void create(Address address, Employee employee) {
         Connection connection = CONNECTION_POOL.getConnection();
         String insert = "Insert into addresses(employee_id, city, street, house) values (?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setLong(1, employee.getId());
             preparedStatement.setString(2, address.getCity());
             preparedStatement.setString(3, address.getStreet());
@@ -28,8 +28,7 @@ public class AddressRepositoryImpl implements AddressRepository {
             }
         } catch (SQLException e) {
             throw new InsertDataException("Unable to insert data into addresses", e);
-        }
-        finally {
+        } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }

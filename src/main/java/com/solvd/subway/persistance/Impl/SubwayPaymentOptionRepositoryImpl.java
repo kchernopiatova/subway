@@ -18,15 +18,14 @@ public class SubwayPaymentOptionRepositoryImpl implements SubwayPaymentOptionRep
     public void create(PaymentOption paymentOption, Subway subway) {
         Connection connection = CONNECTION_POOL.getConnection();
         String insert = "Insert into subway_payment_options(payment_option_id, subway_id) values (?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insert)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insert)) {
             preparedStatement.setLong(1, paymentOption.getId());
             preparedStatement.setLong(2, subway.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new InsertDataException("Unable to insert data into subway_payment_options", e);
-        }
-        finally {
+        } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }

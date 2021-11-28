@@ -24,7 +24,7 @@ public class ConnectionPool {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException("message", e);
                 }
-                this.connections = new ArrayList<>(NUMBER_OF_CONNECTIONS);
+                connections = new ArrayList<>(NUMBER_OF_CONNECTIONS);
                 IntStream.range(0, NUMBER_OF_CONNECTIONS)
                         .boxed()
                         .forEach(index -> connections.add(createConnection()));
@@ -42,8 +42,8 @@ public class ConnectionPool {
         return connection;
     }
 
-    public static ConnectionPool getInstance(){
-        if (instance==null) {
+    public static ConnectionPool getInstance() {
+        if (instance == null) {
             instance = new ConnectionPool();
         }
         return instance;

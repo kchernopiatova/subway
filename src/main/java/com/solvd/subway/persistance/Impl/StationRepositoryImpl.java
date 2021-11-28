@@ -16,7 +16,7 @@ public class StationRepositoryImpl implements StationRepository {
     public void create(Station station, Line line) {
         Connection connection = CONNECTION_POOL.getConnection();
         String insert = "Insert into Stations(line_id, number, title) values (?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setLong(1, line.getId());
             preparedStatement.setInt(2, station.getNumber());
             preparedStatement.setString(3, station.getTitle());
@@ -28,8 +28,7 @@ public class StationRepositoryImpl implements StationRepository {
             }
         } catch (SQLException e) {
             throw new InsertDataException("Unable to insert data into stations", e);
-        }
-        finally {
+        } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }

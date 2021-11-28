@@ -40,8 +40,8 @@ public class TrainRepositoryImpl implements TrainRepository {
     public void update() {
         Connection connection = CONNECTION_POOL.getConnection();
         String update = "Update trains set model = ? where id = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(update)){
-            Long id = 3L;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(update)) {
+            long id = 3L;
             String model = "NewModel";
 
             preparedStatement.setString(1, model);
@@ -58,8 +58,8 @@ public class TrainRepositoryImpl implements TrainRepository {
     public void delete() {
         Connection connection = CONNECTION_POOL.getConnection();
         String delete = "Delete from trains where speed < ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(delete)){
-            Integer speed = 100;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(delete)) {
+            int speed = 100;
             preparedStatement.setInt(1, speed);
 
             preparedStatement.executeUpdate();

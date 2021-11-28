@@ -16,7 +16,7 @@ public class EmployeesRepositoryImpl implements EmployeesRepository {
     public void create(Employee employee, Department department) {
         Connection connection = CONNECTION_POOL.getConnection();
         String insert = "Insert into employees(department_id, first_name, last_name, dob, position) values (?, ?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setLong(1, department.getId());
             preparedStatement.setString(2, employee.getFirstName());
             preparedStatement.setString(3, employee.getLastName());
@@ -30,8 +30,7 @@ public class EmployeesRepositoryImpl implements EmployeesRepository {
             }
         } catch (SQLException e) {
             throw new InsertDataException("Cannot insert data into employees", e);
-        }
-        finally {
+        } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
