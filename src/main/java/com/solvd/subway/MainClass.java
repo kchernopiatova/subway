@@ -9,6 +9,7 @@ public class MainClass {
     public static void main(String[] args) {
         Subway subway1 = new Subway();
         subway1.setCity("Brest");
-
+        SubwayRepositoryImpl subwayRepository = new SubwayRepositoryImpl();
+        subwayRepository.selectEmployees();
     }
 }

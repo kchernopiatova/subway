@@ -3,6 +3,7 @@ package com.solvd.subway.persistance.Impl;
 import com.solvd.subway.domain.Subway;
 import com.solvd.subway.domain.exception.DeleteDataException;
 import com.solvd.subway.domain.exception.InsertDataException;
+import com.solvd.subway.domain.exception.SelectDataException;
 import com.solvd.subway.domain.exception.UpdateDataException;
 import com.solvd.subway.persistance.ConnectionPool;
 import com.solvd.subway.persistance.SubwayRepository;
@@ -64,6 +65,45 @@ public class SubwayRepositoryImpl implements SubwayRepository {
         } catch (SQLException e) {
             throw new DeleteDataException("Cannot delete from subways", e);
         } finally {
+            CONNECTION_POOL.releaseConnection(connection);
+        }
+    }
+
+    public void selectEmployees() {
+        String select = "Select s.id as subway_id, s.city as city, d.id as department_id, d.title as department_title, " +
+                "e.id as employee_id, e.first_name as first_name, e.last_name as last_name, e.dob as date_of_birth, " +
+                "e.position as position, a.id as address_id, a.city as employee_city, a.street as employee_street, " +
+                "a.house_number as employee_house_number from subways s left join departments d on s.id = d.subway_id " +
+                "left join employees e on d.id = e.department_id left join addresses a on e.id = a.employee_id";
+        Connection connection = CONNECTION_POOL.getConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(select)){
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Long subwayId = rs.getLong(1);
+                String city = rs.getString(2);
+                Long depId = rs.getLong(3);
+                String department = rs.getString(4);
+                Long employeeId = rs.getLong(5);
+                String firstName = rs.getString(6);
+                String lastName = rs.getString(7);
+                Date dob = rs.getDate(8);
+                String position = rs.getString(9);
+                Long addressId = rs.getLong(10);
+                String employeeCity = rs.getString(11);
+                String employeeStreet = rs.getString(12);
+                Integer employeeHouseNumber = rs.getInt(13);
+
+                System.out.println("Subway Id: " + subwayId + ", Subway city: " + city);
+                System.out.println("Department Id: " + depId + ", Department: " + department);
+                System.out.println("Employee Id: " + employeeId + ", First name: " + firstName + ", Last name: " + lastName + ", Date of birth: " + dob + ", Position: " + position);
+                System.out.println("Address id: " + addressId + "; Employee address: " + employeeCity + ", " + employeeStreet + ", " + employeeHouseNumber);
+                System.out.println();
+            }
+
+        } catch (SQLException e) {
+            throw new SelectDataException("Unable select data", e);
+        }
+        finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
