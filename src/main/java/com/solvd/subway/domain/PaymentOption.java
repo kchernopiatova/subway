@@ -1,10 +1,12 @@
 package com.solvd.subway.domain;
 
+import java.math.BigDecimal;
+
 public class PaymentOption {
 
     private Long id;
     private Type type;
-    private Double price;
+    private BigDecimal price;
     private Privilege privilege;
 
     public Long getId() {
@@ -23,11 +25,11 @@ public class PaymentOption {
         this.type = type;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

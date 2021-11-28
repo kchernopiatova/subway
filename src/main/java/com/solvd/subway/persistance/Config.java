@@ -11,7 +11,7 @@ public class Config {
     public static String USER;
     public static String PASSWORD;
 
-    public Config() {
+    static {
         try {
             FileInputStream fis;
             Properties property = new Properties();
@@ -27,6 +27,5 @@ public class Config {
         } catch (IOException e) {
             throw new RuntimeException("File not found", e);
         }
-
     }
 }

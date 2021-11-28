@@ -1,5 +1,7 @@
 package com.solvd.subway.persistance;
 
+import com.solvd.subway.domain.exception.CreateConnectionException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,7 +20,7 @@ public class ConnectionPool {
         if (instance == null) {
             if (instance == null) {
                 try {
-                    Class.forName("driver");
+                    Class.forName(Config.DRIVER);
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException("message", e);
                 }
@@ -35,7 +37,7 @@ public class ConnectionPool {
         try {
             connection = DriverManager.getConnection(Config.URL, Config.USER, Config.PASSWORD);
         } catch (SQLException e) {
-            throw new RuntimeException("Couldn't create connection", e);
+            throw new CreateConnectionException("Couldn't create connection", e);
         }
         return connection;
     }
