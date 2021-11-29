@@ -10,6 +10,20 @@ public class Subway {
     private List<Train> trains;
     private List<Department> departments;
     private List<Line> lines;
+    private List<Privilege> privileges;
+
+    @Override
+    public String toString() {
+        return "Subway{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", paymentOptions=" + paymentOptions +
+                ", trains=" + trains +
+                ", departments=" + departments +
+                ", lines=" + lines +
+                ", privileges=" + privileges +
+                '}';
+    }
 
     public Long getId() {
         return id;
@@ -57,5 +71,13 @@ public class Subway {
 
     public void setLines(List<Line> lines) {
         this.lines = lines;
+    }
+
+    public List<Privilege> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(List<Privilege> privileges) {
+        this.privileges = privileges;
     }
 }

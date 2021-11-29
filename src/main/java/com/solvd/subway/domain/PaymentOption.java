@@ -7,7 +7,6 @@ public class PaymentOption {
     private Long id;
     private Type type;
     private BigDecimal price;
-    private Privilege privilege;
 
     public Long getId() {
         return id;
@@ -31,13 +30,5 @@ public class PaymentOption {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public Privilege getPrivilege() {
-        return privilege;
-    }
-
-    public void setPrivilege(Privilege privilege) {
-        this.privilege = privilege;
     }
 };

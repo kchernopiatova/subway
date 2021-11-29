@@ -7,7 +7,7 @@ public class Station {
     private Long id;
     private Integer number;
     private String title;
-    private List<Station> toStations;
+    private Station toStation;
 
     public Long getId() {
         return id;
@@ -33,11 +33,11 @@ public class Station {
         this.title = title;
     }
 
-    public List<Station> getToStations() {
-        return toStations;
+    public Station getToStation() {
+        return toStation;
     }
 
-    public void setToStations(List<Station> toStations) {
-        this.toStations = toStations;
+    public void setToStation(Station toStations) {
+        this.toStation = toStations;
     }
 }

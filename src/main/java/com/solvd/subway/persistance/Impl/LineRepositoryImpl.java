@@ -15,7 +15,7 @@ public class LineRepositoryImpl implements LineRepository {
     @Override
     public void create(Line line, Subway subway) {
         Connection connection = CONNECTION_POOL.getConnection();
-        String insert = "Insert into lines(subway_id, title) values (?, ?)";
+        String insert = "Insert into slines(subway_id, title) values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setLong(1, subway.getId());
             preparedStatement.setString(2, line.getTitle());

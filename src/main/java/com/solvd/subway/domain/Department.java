@@ -8,6 +8,15 @@ public class Department {
     private String title;
     private List<Employee> employees;
 
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", employees=" + employees +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

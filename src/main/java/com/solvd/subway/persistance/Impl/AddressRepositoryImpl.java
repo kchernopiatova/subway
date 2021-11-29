@@ -14,7 +14,7 @@ public class AddressRepositoryImpl implements AddressRepository {
 
     public void create(Address address, Employee employee) {
         Connection connection = CONNECTION_POOL.getConnection();
-        String insert = "Insert into addresses(employee_id, city, street, house) values (?, ?, ?, ?)";
+        String insert = "Insert into addresses(employee_id, city, street, house_number) values (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setLong(1, employee.getId());
             preparedStatement.setString(2, address.getCity());
@@ -31,6 +31,23 @@ public class AddressRepositoryImpl implements AddressRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
+    }
+
+    public static Address addressMapping(ResultSet rs, Long employeeId) {
+        Address address = new Address();
+        try {
+            while (rs.next()) {
+                if (rs.getLong("employee_id") == employeeId) {
+                    address.setId(rs.getLong("address_id"));
+                    address.setCity(rs.getString("employee_city"));
+                    address.setStreet(rs.getString("employee_street"));
+                    address.setHouseNumber(rs.getInt("employee_house_number"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("exc", e);
+        }
+        return address;
     }
 
 }

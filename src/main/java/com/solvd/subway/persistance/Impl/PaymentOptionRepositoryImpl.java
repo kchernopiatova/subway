@@ -30,4 +30,11 @@ public class PaymentOptionRepositoryImpl implements PaymentOptionRepository {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
+
+    public void findAllPaymentOptions() {
+        String select = "Select spo.subway_id, s.city as city, " +
+                "spo.payment_option_id as payment_option_id, po.type as type, po.price as price " +
+                "from subways s inner join subway_payment_options spo on s.id = spo.subway_id " +
+                "inner join payment_options po on po.id = spo.payment_option_id";
+    }
 }

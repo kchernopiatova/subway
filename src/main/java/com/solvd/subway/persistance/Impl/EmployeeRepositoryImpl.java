@@ -1,14 +1,18 @@
 package com.solvd.subway.persistance.Impl;
 
+import com.solvd.subway.domain.Address;
 import com.solvd.subway.domain.Department;
 import com.solvd.subway.domain.Employee;
 import com.solvd.subway.domain.exception.InsertDataException;
 import com.solvd.subway.persistance.ConnectionPool;
-import com.solvd.subway.persistance.EmployeesRepository;
+import com.solvd.subway.persistance.EmployeeRepository;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public class EmployeesRepositoryImpl implements EmployeesRepository {
+public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
@@ -33,5 +37,27 @@ public class EmployeesRepositoryImpl implements EmployeesRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
+    }
+
+    public static List<Employee> employeeMapping(ResultSet rs, Long departmentId) {
+        List<Employee> employees = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                if (rs.getLong("department_id") == departmentId) {
+                    Employee employee = new Employee();
+                    employee.setId(rs.getLong("department_id"));
+                    employee.setFirstName(rs.getString("first_name"));
+                    employee.setLastName(rs.getString("last_name"));
+                    employee.setDob(rs.getTimestamp("date_of_birth").toLocalDateTime().toLocalDate());
+                    employee.setPosition(rs.getString("position"));
+                    Address address = AddressRepositoryImpl.addressMapping(rs, employee.getId());
+                    employee.setAddress(address);
+                    employees.add(employee);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("exc", e);
+        }
+        return employees;
     }
 }

@@ -17,18 +17,17 @@ public class ConnectionPool {
     private static final Integer NUMBER_OF_CONNECTIONS = 5;
 
     private ConnectionPool() {
+        Config config = new Config();
         if (instance == null) {
-            if (instance == null) {
-                try {
-                    Class.forName(Config.DRIVER);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException("message", e);
-                }
-                connections = new ArrayList<>(NUMBER_OF_CONNECTIONS);
-                IntStream.range(0, NUMBER_OF_CONNECTIONS)
-                        .boxed()
-                        .forEach(index -> connections.add(createConnection()));
+            try {
+                Class.forName(Config.DRIVER).newInstance();
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                throw new RuntimeException("message", e);
             }
+            connections = new ArrayList<>(NUMBER_OF_CONNECTIONS);
+            IntStream.range(0, NUMBER_OF_CONNECTIONS)
+                    .boxed()
+                    .forEach(index -> connections.add(createConnection()));
         }
     }
 
