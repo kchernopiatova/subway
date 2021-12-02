@@ -12,19 +12,6 @@ public class Subway {
     private List<Line> lines;
     private List<Privilege> privileges;
 
-    @Override
-    public String toString() {
-        return "Subway{" +
-                "id=" + id +
-                ", city='" + city + '\'' +
-                ", paymentOptions=" + paymentOptions +
-                ", trains=" + trains +
-                ", departments=" + departments +
-                ", lines=" + lines +
-                ", privileges=" + privileges +
-                '}';
-    }
-
     public Long getId() {
         return id;
     }

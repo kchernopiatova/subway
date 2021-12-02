@@ -1,8 +1,10 @@
 package com.solvd.subway;
 
 import com.solvd.subway.domain.*;
-import com.solvd.subway.persistance.Config;
+import com.solvd.subway.persistance.Impl.SubwayRepositoryImpl;
+import com.solvd.subway.service.StationService;
 import com.solvd.subway.service.SubwayService;
+import com.solvd.subway.service.impl.StationServiceImpl;
 import com.solvd.subway.service.impl.SubwayServiceImpl;
 
 import java.math.BigDecimal;
@@ -13,7 +15,6 @@ import java.util.List;
 public class MainClass {
 
     public static void main(String[] args) {
-        Config config = new Config();
 
         Subway minsk = new Subway();
         minsk.setCity("Minsk");
@@ -117,7 +118,7 @@ public class MainClass {
         Station malinovka = new Station();
         malinovka.setNumber(111);
         malinovka.setTitle("Malinovka");
-        malinovka.setToStation(partiz);
+//        malinovka.setToStation(partiz);
 
         List<Station> moskStations = new ArrayList<>();
         moskStations.add(malinovka);
@@ -149,5 +150,12 @@ public class MainClass {
 
         SubwayService subwayService = new SubwayServiceImpl();
         subwayService.create(minsk);
+
+        StationService stationService = new StationServiceImpl();
+        List<Station> subwayStations = stationService.getByNumber(110);
+
+        SubwayRepositoryImpl subwayRepository = new SubwayRepositoryImpl();
+        List<Subway> subways = subwayRepository.findEmployees();
+        System.out.println(subways);
     }
 }

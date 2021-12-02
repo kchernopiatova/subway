@@ -20,7 +20,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department create(Department department, Subway subway) {
         department.setId(null);
         departmentRepository.create(department, subway);
-        if(department.getEmployees() != null) {
+        if (department.getEmployees() != null) {
             List<Employee> employees = department.getEmployees().stream()
                     .map(employee -> employeeService.create(employee, department))
                     .collect(Collectors.toList());

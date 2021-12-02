@@ -2,7 +2,7 @@ package com.solvd.subway.persistance.Impl;
 
 import com.solvd.subway.domain.Department;
 import com.solvd.subway.domain.Subway;
-import com.solvd.subway.domain.exception.*;
+import com.solvd.subway.domain.exception.ProcessingException;
 import com.solvd.subway.persistance.ConnectionPool;
 import com.solvd.subway.persistance.SubwayRepository;
 
@@ -28,7 +28,7 @@ public class SubwayRepositoryImpl implements SubwayRepository {
                 subway.setId(rs.getLong(1));
             }
         } catch (SQLException e) {
-            throw new InsertDataException("Cannot insert subway to a DataBase", e);
+            throw new ProcessingException("Cannot insert subway to a DataBase", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
@@ -45,7 +45,7 @@ public class SubwayRepositoryImpl implements SubwayRepository {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new UpdateDataException("Cannot update subways", e);
+            throw new ProcessingException("Cannot update subways", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
@@ -61,7 +61,7 @@ public class SubwayRepositoryImpl implements SubwayRepository {
             preparedStatement.setString(1, city);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DeleteDataException("Cannot delete from subways", e);
+            throw new ProcessingException("Cannot delete from subways", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
@@ -73,35 +73,50 @@ public class SubwayRepositoryImpl implements SubwayRepository {
                 "e.id as employee_id, e.first_name as first_name, e.last_name as last_name, e.dob as date_of_birth, " +
                 "e.position as position, a.id as address_id, a.city as employee_city, a.street as employee_street, " +
                 "a.house_number as employee_house_number from subways s left join departments d on s.id = d.subway_id " +
-                "left join employees e on d.id = e.department_id left join addresses a on e.id = a.employee_id";
-
+                "left join employees e on d.id = e.department_id left join addresses a on e.id = a.employee_id;";
+        List<Subway> subways;
         Connection connection = CONNECTION_POOL.getConnection();
-        List<Subway> subways = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(select)) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(select);
             ResultSet rs = preparedStatement.executeQuery();
             subways = subwayMapping(rs);
         } catch (SQLException e) {
-            throw new SelectDataException("Unable select data", e);
-        } finally {
-            CONNECTION_POOL.releaseConnection(connection);
+            throw new ProcessingException("Can't get employees", e);
         }
         return subways;
     }
 
-    public List<Subway> subwayMapping(ResultSet rs) {
+    public static List<Subway> subwayMapping(ResultSet rs) {
         List<Subway> subways = new ArrayList<>();
+        List<Department> departments = new ArrayList<>();
         try {
             while (rs.next()) {
-                Subway subway = new Subway();
-                subway.setId(rs.getLong("subway_id"));
+                Long id = rs.getLong("subway_id");
+                Subway subway = checkIfPresent(id, subways);
                 subway.setCity(rs.getString("city"));
-                List<Department> departments = DepartmentRepositoryImpl.departmentMapping(rs, subway.getId());
+
+                departments.addAll(DepartmentRepositoryImpl.departmentMapping(rs));
                 subway.setDepartments(departments);
-                subways.add(subway);
             }
         } catch (SQLException e) {
-            throw new MappingException("Unable to map subway", e);
+            throw new ProcessingException("Mapping exception", e);
         }
         return subways;
+    }
+
+    private static Subway checkIfPresent(Long id, List<Subway> subways) {
+        Subway result = null;
+        for (Subway subway : subways) {
+            if (subway.getId().equals(id)) {
+                result = subway;
+            }
+        }
+        if (result == null) {
+            Subway newSubway = new Subway();
+            newSubway.setId(id);
+            subways.add(newSubway);
+            result = newSubway;
+        }
+        return result;
     }
 }

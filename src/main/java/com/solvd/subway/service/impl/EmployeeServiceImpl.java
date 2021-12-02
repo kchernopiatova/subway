@@ -17,7 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee create(Employee employee, Department department) {
         employee.setId(null);
         employeeRepository.create(employee, department);
-        if(employee.getAddress() != null) {
+        if (employee.getAddress() != null) {
             Address address = addressService.create(employee.getAddress(), employee);
             employee.setAddress(address);
         }

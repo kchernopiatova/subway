@@ -2,7 +2,7 @@ package com.solvd.subway.persistance.Impl;
 
 import com.solvd.subway.domain.PaymentOption;
 import com.solvd.subway.domain.Subway;
-import com.solvd.subway.domain.exception.InsertDataException;
+import com.solvd.subway.domain.exception.ProcessingException;
 import com.solvd.subway.persistance.ConnectionPool;
 import com.solvd.subway.persistance.SubwayPaymentOptionRepository;
 
@@ -24,7 +24,7 @@ public class SubwayPaymentOptionRepositoryImpl implements SubwayPaymentOptionRep
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new InsertDataException("Unable to insert data into subway_payment_options", e);
+            throw new ProcessingException("Unable to insert data into subway_payment_options", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }

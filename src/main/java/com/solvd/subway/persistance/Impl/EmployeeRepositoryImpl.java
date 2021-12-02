@@ -3,12 +3,11 @@ package com.solvd.subway.persistance.Impl;
 import com.solvd.subway.domain.Address;
 import com.solvd.subway.domain.Department;
 import com.solvd.subway.domain.Employee;
-import com.solvd.subway.domain.exception.InsertDataException;
+import com.solvd.subway.domain.exception.ProcessingException;
 import com.solvd.subway.persistance.ConnectionPool;
 import com.solvd.subway.persistance.EmployeeRepository;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,31 +32,45 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
                 employee.setId(rs.getLong(1));
             }
         } catch (SQLException e) {
-            throw new InsertDataException("Cannot insert data into employees", e);
+            throw new ProcessingException("Cannot insert data into employees", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
 
-    public static List<Employee> employeeMapping(ResultSet rs, Long departmentId) {
+    public static List<Employee> employeeMapping(ResultSet rs) {
         List<Employee> employees = new ArrayList<>();
         try {
-            while (rs.next()) {
-                if (rs.getLong("department_id") == departmentId) {
-                    Employee employee = new Employee();
-                    employee.setId(rs.getLong("department_id"));
-                    employee.setFirstName(rs.getString("first_name"));
-                    employee.setLastName(rs.getString("last_name"));
-                    employee.setDob(rs.getTimestamp("date_of_birth").toLocalDateTime().toLocalDate());
-                    employee.setPosition(rs.getString("position"));
-                    Address address = AddressRepositoryImpl.addressMapping(rs, employee.getId());
-                    employee.setAddress(address);
-                    employees.add(employee);
-                }
+            long id = rs.getLong("employee_id");
+            if (id != 0) {
+                Employee employee = checkIfPresent(id, employees);
+                employee.setFirstName(rs.getString("first_name"));
+                employee.setLastName(rs.getString("last_name"));
+                employee.setDob(rs.getTimestamp("date_of_birth").toLocalDateTime().toLocalDate());
+                employee.setPosition(rs.getString("position"));
+
+                Address address = AddressRepositoryImpl.addressMapping(rs);
+                employee.setAddress(address);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("exc", e);
+            throw new ProcessingException("Mapping exception", e);
         }
         return employees;
+    }
+
+    private static Employee checkIfPresent(Long id, List<Employee> employees) {
+        Employee result = null;
+        for (Employee employee : employees) {
+            if (employee.getId().equals(id)) {
+                result = employee;
+            }
+        }
+        if (result == null) {
+            Employee newEmployee = new Employee();
+            newEmployee.setId(id);
+            employees.add(newEmployee);
+            result = newEmployee;
+        }
+        return result;
     }
 }

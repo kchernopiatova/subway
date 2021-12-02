@@ -18,7 +18,7 @@ public class PaymentOptionServiceImpl implements PaymentOptionService {
         paymentOption.setId(null);
         paymentOptionRepository.create(paymentOption);
         if (subway.getPaymentOptions() != null) {
-            subway.getPaymentOptions().stream()
+            subway.getPaymentOptions()
                     .forEach(po -> subwayPaymentOptionRepository.create(paymentOption, subway));
         }
         return paymentOption;

@@ -21,31 +21,31 @@ public class SubwayServiceImpl implements SubwayService {
     public Subway create(Subway subway) {
         subway.setId(null);
         subwayRepository.create(subway);
-        if(subway.getDepartments() != null) {
+        if (subway.getDepartments() != null) {
             List<Department> departments = subway.getDepartments().stream()
                     .map(department -> departmentService.create(department, subway))
                     .collect(Collectors.toList());
             subway.setDepartments(departments);
         }
-        if(subway.getTrains() != null) {
+        if (subway.getTrains() != null) {
             List<Train> trains = subway.getTrains().stream()
                     .map(train -> trainService.create(train, subway))
                     .collect(Collectors.toList());
             subway.setTrains(trains);
         }
-        if(subway.getPaymentOptions() != null) {
+        if (subway.getPaymentOptions() != null) {
             List<PaymentOption> paymentOptions = subway.getPaymentOptions().stream()
                     .map(po -> paymentOptionService.create(po, subway))
                     .collect(Collectors.toList());
             subway.setPaymentOptions(paymentOptions);
         }
-        if(subway.getLines() != null) {
+        if (subway.getLines() != null) {
             List<Line> lines = subway.getLines().stream()
                     .map(line -> lineService.create(line, subway))
                     .collect(Collectors.toList());
             subway.setLines(lines);
         }
-        if(subway.getPrivileges() != null) {
+        if (subway.getPrivileges() != null) {
             List<Privilege> privileges = subway.getPrivileges().stream()
                     .map(privilege -> privilegeService.create(privilege, subway))
                     .collect(Collectors.toList());

@@ -18,7 +18,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         privilege.setId(null);
         privilegeRepository.create(privilege);
         if (subway.getPrivileges() != null) {
-            subway.getPrivileges().stream()
+            subway.getPrivileges()
                     .forEach(pr -> subwayPrivilegeRepository.create(privilege, subway));
         }
         return privilege;

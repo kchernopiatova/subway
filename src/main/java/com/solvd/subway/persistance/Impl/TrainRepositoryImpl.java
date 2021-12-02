@@ -2,9 +2,7 @@ package com.solvd.subway.persistance.Impl;
 
 import com.solvd.subway.domain.Subway;
 import com.solvd.subway.domain.Train;
-import com.solvd.subway.domain.exception.DeleteDataException;
-import com.solvd.subway.domain.exception.InsertDataException;
-import com.solvd.subway.domain.exception.UpdateDataException;
+import com.solvd.subway.domain.exception.ProcessingException;
 import com.solvd.subway.persistance.ConnectionPool;
 import com.solvd.subway.persistance.TrainRepository;
 
@@ -30,7 +28,7 @@ public class TrainRepositoryImpl implements TrainRepository {
                 train.setId(rs.getLong(1));
             }
         } catch (SQLException e) {
-            throw new InsertDataException("Cannot insert train to a DataBase", e);
+            throw new ProcessingException("Cannot insert train to a DataBase", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
@@ -48,23 +46,22 @@ public class TrainRepositoryImpl implements TrainRepository {
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new UpdateDataException("Cannot update train data", e);
+            throw new ProcessingException("Cannot update train data", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
 
     @Override
-    public void delete() {
+    public void delete(Train train) {
         Connection connection = CONNECTION_POOL.getConnection();
-        String delete = "Delete from trains where speed < ?";
+        String delete = "Delete from trains where train_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(delete)) {
-            int speed = 100;
-            preparedStatement.setInt(1, speed);
-
+            Long id = train.getId();
+            preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DeleteDataException("Cannot delete train data", e);
+            throw new ProcessingException("Cannot delete train data", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }

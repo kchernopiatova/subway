@@ -7,16 +7,6 @@ public class Address {
     private String street;
     private Integer houseNumber;
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", houseNumber=" + houseNumber +
-                '}';
-    }
-
     public Long getId() {
         return id;
     }

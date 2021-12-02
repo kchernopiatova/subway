@@ -2,7 +2,7 @@ package com.solvd.subway.persistance.Impl;
 
 import com.solvd.subway.domain.Line;
 import com.solvd.subway.domain.Subway;
-import com.solvd.subway.domain.exception.InsertDataException;
+import com.solvd.subway.domain.exception.ProcessingException;
 import com.solvd.subway.persistance.ConnectionPool;
 import com.solvd.subway.persistance.LineRepository;
 
@@ -26,7 +26,7 @@ public class LineRepositoryImpl implements LineRepository {
                 line.setId(rs.getLong(1));
             }
         } catch (SQLException e) {
-            throw new InsertDataException("Unable to insert data into lines", e);
+            throw new ProcessingException("Unable to insert data into lines", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }

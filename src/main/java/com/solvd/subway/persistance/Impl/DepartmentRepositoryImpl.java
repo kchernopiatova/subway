@@ -3,8 +3,7 @@ package com.solvd.subway.persistance.Impl;
 import com.solvd.subway.domain.Department;
 import com.solvd.subway.domain.Employee;
 import com.solvd.subway.domain.Subway;
-import com.solvd.subway.domain.exception.InsertDataException;
-import com.solvd.subway.domain.exception.UpdateDataException;
+import com.solvd.subway.domain.exception.ProcessingException;
 import com.solvd.subway.persistance.ConnectionPool;
 import com.solvd.subway.persistance.DepartmentRepository;
 
@@ -29,7 +28,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
                 department.setId(rs.getLong(1));
             }
         } catch (SQLException e) {
-            throw new InsertDataException("Unable to insert data to departments");
+            throw new ProcessingException("Unable to insert data to departments", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
@@ -47,12 +46,13 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new UpdateDataException("Cannot update departments", e);
+            throw new ProcessingException("Cannot update departments", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
 
+    @Override
     public void delete() {
         Connection connection = CONNECTION_POOL.getConnection();
         String delete = "Delete from departments where title = ?";
@@ -62,28 +62,40 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
             preparedStatement.setString(1, title);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new UpdateDataException("Cannot delete from departments", e);
+            throw new ProcessingException("Cannot delete from departments", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
 
-    public static List<Department> departmentMapping(ResultSet rs, Long subwayId) {
+    public static List<Department> departmentMapping(ResultSet rs) {
         List<Department> departments = new ArrayList<>();
         try {
-            while (rs.next()) {
-                if (rs.getLong("subway_id") == subwayId) {
-                    Department department = new Department();
-                    department.setId(rs.getLong("department_id"));
-                    department.setTitle(rs.getString("department_title"));
-                    List<Employee> employees = EmployeeRepositoryImpl.employeeMapping(rs, department.getId());
-                    department.setEmployees(employees);
-                    departments.add(department);
-                }
-            }
+            Long id = rs.getLong("department_id");
+            Department department = checkIfPresent(id, departments);
+            department.setTitle(rs.getString("department_title"));
+
+            List<Employee> employees = EmployeeRepositoryImpl.employeeMapping(rs);
+            department.setEmployees(employees);
         } catch (SQLException e) {
-            throw new RuntimeException("Unable to map departments", e);
+            throw new ProcessingException("Mapping exception", e);
         }
         return departments;
+    }
+
+    private static Department checkIfPresent(Long id, List<Department> departments) {
+        Department result = null;
+        for (Department department : departments) {
+            if (department.getId().equals(id)) {
+                result = department;
+            }
+        }
+        if (result == null) {
+            Department newDepartment = new Department();
+            newDepartment.setId(id);
+            departments.add(newDepartment);
+            result = newDepartment;
+        }
+        return result;
     }
 }

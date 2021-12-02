@@ -11,18 +11,6 @@ public class Employee {
     private String position;
     private Address address;
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", dob=" + dob +
-                ", position='" + position + '\'' +
-                ", address=" + address +
-                '}';
-    }
-
     public Long getId() {
         return id;
     }

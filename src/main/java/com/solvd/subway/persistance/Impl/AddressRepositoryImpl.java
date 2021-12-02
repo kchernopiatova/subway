@@ -2,7 +2,7 @@ package com.solvd.subway.persistance.Impl;
 
 import com.solvd.subway.domain.Address;
 import com.solvd.subway.domain.Employee;
-import com.solvd.subway.domain.exception.InsertDataException;
+import com.solvd.subway.domain.exception.ProcessingException;
 import com.solvd.subway.persistance.AddressRepository;
 import com.solvd.subway.persistance.ConnectionPool;
 
@@ -27,27 +27,24 @@ public class AddressRepositoryImpl implements AddressRepository {
                 address.setId(rs.getLong(1));
             }
         } catch (SQLException e) {
-            throw new InsertDataException("Unable to insert data into addresses", e);
+            throw new ProcessingException("Unable to insert data into addresses", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
 
-    public static Address addressMapping(ResultSet rs, Long employeeId) {
+    public static Address addressMapping(ResultSet rs) {
         Address address = new Address();
         try {
-            while (rs.next()) {
-                if (rs.getLong("employee_id") == employeeId) {
-                    address.setId(rs.getLong("address_id"));
-                    address.setCity(rs.getString("employee_city"));
-                    address.setStreet(rs.getString("employee_street"));
-                    address.setHouseNumber(rs.getInt("employee_house_number"));
-                }
+            long id = rs.getLong("address_id");
+            if (id != 0) {
+                address.setCity(rs.getString("employee_city"));
+                address.setStreet(rs.getString("employee_street"));
+                address.setHouseNumber(rs.getInt("employee_house_number"));
             }
         } catch (SQLException e) {
-            throw new RuntimeException("exc", e);
+            throw new ProcessingException("Mapping exception", e);
         }
         return address;
     }
-
 }

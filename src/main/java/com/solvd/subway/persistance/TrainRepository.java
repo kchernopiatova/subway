@@ -8,5 +8,5 @@ public interface TrainRepository {
 
     void update();
 
-    void delete();
+    void delete(Train train);
 }
