@@ -1,21 +1,22 @@
-package com.solvd.subway;
+package com.solvd.subway.domain;
 
 import java.util.List;
 
 public class Subway {
 
-    private Integer id;
+    private Long id;
     private String city;
     private List<PaymentOption> paymentOptions;
     private List<Train> trains;
     private List<Department> departments;
     private List<Line> lines;
+    private List<Privilege> privileges;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,5 +58,13 @@ public class Subway {
 
     public void setLines(List<Line> lines) {
         this.lines = lines;
+    }
+
+    public List<Privilege> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(List<Privilege> privileges) {
+        this.privileges = privileges;
     }
 }

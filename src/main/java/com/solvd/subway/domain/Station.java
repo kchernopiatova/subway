@@ -1,13 +1,11 @@
-package com.solvd.subway;
-
-import java.util.List;
+package com.solvd.subway.domain;
 
 public class Station {
 
     private Long id;
     private Integer number;
     private String title;
-    private List<Station> toStations;
+    private Long toStationId;
 
     public Long getId() {
         return id;
@@ -33,11 +31,11 @@ public class Station {
         this.title = title;
     }
 
-    public List<Station> getToStations() {
-        return toStations;
+    public Long getToStationId() {
+        return toStationId;
     }
 
-    public void setToStations(List<Station> toStations) {
-        this.toStations = toStations;
+    public void setToStationId(Long toStationId) {
+        this.toStationId = toStationId;
     }
 }

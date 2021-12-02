@@ -1,3 +1,5 @@
+
+drop database subway;
 create database if not exists subway;
 use subway;
 
@@ -98,7 +100,7 @@ create table if not exists line_transfers (
 create table if not exists payment_options (
 	id serial,
     type varchar(45) not null,
-    price double,
+    price DECIMAl,
     primary key (id)
     );
 

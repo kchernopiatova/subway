@@ -1,4 +1,4 @@
-package com.solvd.subway;
+package com.solvd.subway.domain;
 
 import java.time.LocalDate;
 
@@ -9,11 +9,11 @@ public class Train {
     private Integer speed;
     private LocalDate creationDate;
 
-    public Long getID() {
+    public Long getId() {
         return id;
     }
 
-    public void setID(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
