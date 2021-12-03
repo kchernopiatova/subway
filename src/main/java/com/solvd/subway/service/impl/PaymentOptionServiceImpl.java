@@ -2,10 +2,10 @@ package com.solvd.subway.service.impl;
 
 import com.solvd.subway.domain.PaymentOption;
 import com.solvd.subway.domain.Subway;
-import com.solvd.subway.persistance.Impl.PaymentOptionRepositoryImpl;
-import com.solvd.subway.persistance.Impl.SubwayPaymentOptionRepositoryImpl;
-import com.solvd.subway.persistance.PaymentOptionRepository;
-import com.solvd.subway.persistance.SubwayPaymentOptionRepository;
+import com.solvd.subway.persistence.Impl.PaymentOptionRepositoryImpl;
+import com.solvd.subway.persistence.Impl.SubwayPaymentOptionRepositoryImpl;
+import com.solvd.subway.persistence.PaymentOptionRepository;
+import com.solvd.subway.persistence.SubwayPaymentOptionRepository;
 import com.solvd.subway.service.PaymentOptionService;
 
 public class PaymentOptionServiceImpl implements PaymentOptionService {

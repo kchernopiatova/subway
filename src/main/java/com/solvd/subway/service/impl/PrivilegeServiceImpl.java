@@ -2,10 +2,10 @@ package com.solvd.subway.service.impl;
 
 import com.solvd.subway.domain.Privilege;
 import com.solvd.subway.domain.Subway;
-import com.solvd.subway.persistance.Impl.PrivilegeRepositoryImpl;
-import com.solvd.subway.persistance.Impl.SubwayPrivilegeRepositoryImpl;
-import com.solvd.subway.persistance.PrivilegeRepository;
-import com.solvd.subway.persistance.SubwayPrivilegeRepository;
+import com.solvd.subway.persistence.Impl.PrivilegeRepositoryImpl;
+import com.solvd.subway.persistence.Impl.SubwayPrivilegeRepositoryImpl;
+import com.solvd.subway.persistence.PrivilegeRepository;
+import com.solvd.subway.persistence.SubwayPrivilegeRepository;
 import com.solvd.subway.service.PrivilegeService;
 
 public class PrivilegeServiceImpl implements PrivilegeService {

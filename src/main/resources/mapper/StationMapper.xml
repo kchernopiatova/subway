@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.subway.persistence.StationRepository">
+
+    <insert id="create" keyColumn="id" keyProperty="station.id" useGeneratedKeys="true">
+        Insert into Stations(line_id, number, title) values (#{line.id}, #{station.number}, #{station.title})
+    </insert>
+
+    <select id="getByNumber" resultMap="StationResultMap">
+        Select s.id as station_id, s.number as station_number, s.title as station_title
+        from stations s where number = #{number}
+    </select>
+
+    <resultMap id="StationResultMap" type="com.solvd.subway.domain.Station" autoMapping="false">
+        <id property="id" column="station_id"/>
+        <result property="number" column="station_number"/>
+        <result property="title" column="station_title"/>
+    </resultMap>
+</mapper>
