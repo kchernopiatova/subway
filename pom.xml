@@ -36,7 +36,6 @@
             <artifactId>mybatis</artifactId>
             <version>${mybatisVersion}</version>
         </dependency>
-
     </dependencies>
 
     <build>

@@ -2,6 +2,7 @@ package com.solvd.subway.service.impl;
 
 import com.solvd.subway.domain.Privilege;
 import com.solvd.subway.domain.Subway;
+
 import com.solvd.subway.persistence.Impl.PrivilegeRepositoryImpl;
 import com.solvd.subway.persistence.Impl.SubwayPrivilegeRepositoryImpl;
 import com.solvd.subway.persistence.PrivilegeRepository;
