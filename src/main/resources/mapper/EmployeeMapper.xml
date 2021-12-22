@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.subway.persistence.EmployeeRepository">
+
+    <insert id="create" keyColumn="id" keyProperty="employee.id" useGeneratedKeys="true">
+        Insert into employees(department_id, first_name, last_name, dob, position) values (#{department.id},
+        #{employee.firstName}, #{employee.lastName}, #{employee.dob}, #{employee.position})
+    </insert>
+
+    <resultMap id="EmployeeResultMap" type="com.solvd.subway.domain.Employee" autoMapping="false">
+        <id property="id" column="employee_id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="position" column="position"/>
+        <result property="dob" column="date_of_birth"/>
+        <association property="address" resultMap="com.solvd.subway.persistence.AddressRepository.AddressResultMap"/>
+    </resultMap>
+</mapper>

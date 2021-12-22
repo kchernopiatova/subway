@@ -1,11 +1,13 @@
 package com.solvd.subway;
 
 import com.solvd.subway.domain.*;
-import com.solvd.subway.persistance.Impl.SubwayRepositoryImpl;
-import com.solvd.subway.service.StationService;
-import com.solvd.subway.service.SubwayService;
-import com.solvd.subway.service.impl.StationServiceImpl;
-import com.solvd.subway.service.impl.SubwayServiceImpl;
+
+import com.solvd.subway.persistence.DepartmentRepository;
+import com.solvd.subway.persistence.Impl.DepartmentMybatisImpl;
+import com.solvd.subway.persistence.Impl.StationMybatisImpl;
+import com.solvd.subway.persistence.Impl.SubwayMybatisImpl;
+import com.solvd.subway.persistence.StationRepository;
+import com.solvd.subway.persistence.SubwayRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -148,14 +150,16 @@ public class MainClass {
 
         minsk.setPrivileges(minskPrivileges);
 
-        SubwayService subwayService = new SubwayServiceImpl();
-        subwayService.create(minsk);
+        SubwayRepository subwayRepository1 = new SubwayMybatisImpl();
+        List<Subway> subways1 = subwayRepository1.findEmployees();
 
-        StationService stationService = new StationServiceImpl();
-        List<Station> subwayStations = stationService.getByNumber(110);
+        subwayRepository1.update("London", 3L);
 
-        SubwayRepositoryImpl subwayRepository = new SubwayRepositoryImpl();
-        List<Subway> subways = subwayRepository.findEmployees();
-        System.out.println(subways);
+        minsk.setId(4L);
+        DepartmentRepository departmentRepository = new DepartmentMybatisImpl();
+        departmentRepository.update("Accounting", 4L);
+
+        StationRepository stationRepository = new StationMybatisImpl();
+        List<Station> stations = stationRepository.getByNumber(17);
     }
 }

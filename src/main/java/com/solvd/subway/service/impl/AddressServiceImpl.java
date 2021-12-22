@@ -2,8 +2,8 @@ package com.solvd.subway.service.impl;
 
 import com.solvd.subway.domain.Address;
 import com.solvd.subway.domain.Employee;
-import com.solvd.subway.persistance.AddressRepository;
-import com.solvd.subway.persistance.Impl.AddressRepositoryImpl;
+import com.solvd.subway.persistence.AddressRepository;
+import com.solvd.subway.persistence.Impl.AddressRepositoryImpl;
 import com.solvd.subway.service.AddressService;
 
 public class AddressServiceImpl implements AddressService {

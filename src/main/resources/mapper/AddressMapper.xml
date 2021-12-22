@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.subway.persistence.AddressRepository">
+
+    <insert id="create" keyColumn="id" keyProperty="address.id" useGeneratedKeys="true">
+        Insert into addresses(employee_id, city, street, house_number) values (#{employee.id},
+        #{address.city}, #{address.street}, #{address.houseNumber})
+    </insert>
+
+    <resultMap id="AddressResultMap" type="com.solvd.subway.domain.Address" autoMapping="false">
+        <id property="id" column="address_id"/>
+        <result property="city" column="employee_city"/>
+        <result property="street" column="employee_street"/>
+        <result property="houseNumber" column="employee_house_number"/>
+    </resultMap>
+</mapper>

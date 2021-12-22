@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.subway.persistence.PrivilegeRepository">
+
+    <insert id="create" keyColumn="id" useGeneratedKeys="true">
+        Insert into privileges(category, discount) values (#{category}, #{discount})
+    </insert>
+</mapper>

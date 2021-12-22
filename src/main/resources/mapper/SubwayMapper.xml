@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.subway.persistence.SubwayRepository">
+
+    <insert id="create" keyColumn="id" useGeneratedKeys="true">
+        Insert into subways(city) values (#{city})
+    </insert>
+
+    <update id="update">
+        Update subways set city = #{city} where id = #{id}
+    </update>
+
+    <delete id="delete">
+        Delete from subways where city = #{city}
+    </delete>
+    
+    <select id="findEmployees" resultMap="SubwayResultMap">
+        Select s.id as subway_id, s.city as city, d.id as department_id, d.title as department_title,
+        e.id as employee_id, e.first_name as first_name, e.last_name as last_name, e.dob as date_of_birth,
+        e.position as position, a.id as address_id, a.city as employee_city, a.street as employee_street, 
+        a.house_number as employee_house_number from subways s left join departments d on s.id = d.subway_id
+        left join employees e on d.id = e.department_id left join addresses a on e.id = a.employee_id
+    </select>
+    
+    <resultMap id="SubwayResultMap" type="com.solvd.subway.domain.Subway" autoMapping="false">
+        <id property="id" column="subway_id"/>
+        <result property="city" column="city"/>
+        <association property="departments" resultMap="com.solvd.subway.persistence.DepartmentRepository.DepartmentResultMap"/>
+    </resultMap>
+</mapper>
