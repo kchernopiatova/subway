@@ -21,10 +21,25 @@
         a.house_number as employee_house_number from subways s left join departments d on s.id = d.subway_id
         left join employees e on d.id = e.department_id left join addresses a on e.id = a.employee_id
     </select>
+
+    <select id="getById" resultMap="SubwayResultMapNew">
+        Select s.id as subway_id, s.city as subway_city from subways s
+        where s.id = #{id}
+    </select>
+
+    <select id="getByCity" resultMap="SubwayResultMapNew">
+        Select s.id as subway_id, s.city as subway_city from subways s
+        where s.city = #{city}
+    </select>
     
     <resultMap id="SubwayResultMap" type="com.solvd.subway.domain.Subway" autoMapping="false">
         <id property="id" column="subway_id"/>
         <result property="city" column="city"/>
         <association property="departments" resultMap="com.solvd.subway.persistence.DepartmentRepository.DepartmentResultMap"/>
+    </resultMap>
+
+    <resultMap id="SubwayResultMapNew" type="com.solvd.subway.domain.Subway" autoMapping="false">
+        <id property="id" column="subway_id"/>
+        <result property="city" column="subway_city"/>
     </resultMap>
 </mapper>

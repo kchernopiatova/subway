@@ -2,7 +2,7 @@ package com.solvd.subway.service.impl;
 
 import com.solvd.subway.domain.*;
 
-import com.solvd.subway.persistence.Impl.SubwayRepositoryImpl;
+import com.solvd.subway.persistence.Impl.SubwayMybatisImpl;
 import com.solvd.subway.persistence.SubwayRepository;
 import com.solvd.subway.service.*;
 
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class SubwayServiceImpl implements SubwayService {
 
-    private final SubwayRepository subwayRepository = new SubwayRepositoryImpl();
+    private final SubwayRepository subwayRepository = new SubwayMybatisImpl();
     private final DepartmentService departmentService = new DepartmentServiceImpl();
     private final TrainService trainService = new TrainServiceImpl();
     private final PaymentOptionService paymentOptionService = new PaymentOptionServiceImpl();

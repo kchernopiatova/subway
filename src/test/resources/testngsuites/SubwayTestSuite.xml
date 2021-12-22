@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name = "Suite" parallel = "classes" thread-count = "5">
+    <test name = "initialTest">
+        <groups>
+            <run>
+                <include name="selects"/>
+            </run>
+        </groups>
+        <classes>
+            <class name = "com.solvd.subway.SubwayTest">
+                <methods>
+                    <include name="verifySubwayCreate"/>
+                    <include name="verifySubwayUpdate"/>
+                    <include name="verifyGetSubwayByCity"/>
+                    <include name="verifyGetSubways"/>
+                    <include name="verifyDeleteSubway"/>
+                </methods>
+            </class>
+            <class name="com.solvd.subway.DepartmentTest">
+                <methods>
+<!--                    <include name="verifyDepartmentUpdate"/>-->
+                    <include name="verifyMultipleDelete"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

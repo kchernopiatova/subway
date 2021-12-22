@@ -5,6 +5,10 @@
         Insert into departments(subway_id, title) values (#{subway.id}, #{department.title})
     </insert>
 
+    <insert id="createDepartment" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        Insert into departments(title) values (#{title})
+    </insert>
+
     <update id="update">
         Update departments set title = #{title} where id = #{id}
     </update>
@@ -12,6 +16,18 @@
     <delete id="delete">
         Delete from departments where title = #{title}
     </delete>
+
+    <select id="getDepartmentId" resultType="Long">
+        Select d.id from departments d where d.title = #{title}
+    </select>
+
+    <select id="getById" resultMap="DepartmentResultMap">
+        Select d.id as department_id, d.title as department_title from departments d where id = #{id}
+    </select>
+
+    <select id="getByTitle" resultMap="DepartmentResultMap">
+        Select d.id as department_id, d.title as department_title from departments d where title = #{title}
+    </select>
 
     <resultMap id="DepartmentResultMap" type="com.solvd.subway.domain.Department" autoMapping="false">
         <id property="id" column="department_id"/>

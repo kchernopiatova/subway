@@ -5,13 +5,13 @@ import com.solvd.subway.domain.Department;
 import com.solvd.subway.domain.Employee;
 
 import com.solvd.subway.persistence.EmployeeRepository;
-import com.solvd.subway.persistence.Impl.EmployeeRepositoryImpl;
+import com.solvd.subway.persistence.Impl.EmployeeMybatisImpl;
 import com.solvd.subway.service.AddressService;
 import com.solvd.subway.service.EmployeeService;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
+    private final EmployeeRepository employeeRepository = new EmployeeMybatisImpl();
     private final AddressService addressService = new AddressServiceImpl();
 
     @Override

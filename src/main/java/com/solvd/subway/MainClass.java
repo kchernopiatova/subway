@@ -8,6 +8,8 @@ import com.solvd.subway.persistence.Impl.StationMybatisImpl;
 import com.solvd.subway.persistence.Impl.SubwayMybatisImpl;
 import com.solvd.subway.persistence.StationRepository;
 import com.solvd.subway.persistence.SubwayRepository;
+import com.solvd.subway.service.SubwayService;
+import com.solvd.subway.service.impl.SubwayServiceImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -161,5 +163,16 @@ public class MainClass {
 
         StationRepository stationRepository = new StationMybatisImpl();
         List<Station> stations = stationRepository.getByNumber(17);
+
+        SubwayService subwayService = new SubwayServiceImpl();
+        Subway subway = subwayService.create(minsk);
+        System.out.println();
+//
+//        SubwayService subwayService = new SubwayServiceImpl();
+//        SubwayRepository subwayRepository = new SubwayMybatisImpl();
+//        Subway newSubway = subwayRepository.getFullSubway();
+//
+//        subwayService.create(newSubway);
+//        System.out.println();
     }
 }

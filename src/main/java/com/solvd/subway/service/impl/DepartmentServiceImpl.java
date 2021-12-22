@@ -5,7 +5,7 @@ import com.solvd.subway.domain.Employee;
 import com.solvd.subway.domain.Subway;
 
 import com.solvd.subway.persistence.DepartmentRepository;
-import com.solvd.subway.persistence.Impl.DepartmentRepositoryImpl;
+import com.solvd.subway.persistence.Impl.DepartmentMybatisImpl;
 import com.solvd.subway.service.DepartmentService;
 import com.solvd.subway.service.EmployeeService;
 
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private final DepartmentRepository departmentRepository = new DepartmentRepositoryImpl();
+    private final DepartmentRepository departmentRepository = new DepartmentMybatisImpl();
     private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override

@@ -4,7 +4,7 @@ import com.solvd.subway.domain.Line;
 import com.solvd.subway.domain.Station;
 import com.solvd.subway.domain.Subway;
 
-import com.solvd.subway.persistence.Impl.LineRepositoryImpl;
+import com.solvd.subway.persistence.Impl.LineMybatisImpl;
 import com.solvd.subway.persistence.LineRepository;
 import com.solvd.subway.service.LineService;
 import com.solvd.subway.service.StationService;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class LineServiceImpl implements LineService {
 
-    private final LineRepository lineRepository = new LineRepositoryImpl();
+    private final LineRepository lineRepository = new LineMybatisImpl();
     private final StationService stationService = new StationServiceImpl();
 
     @Override

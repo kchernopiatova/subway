@@ -13,4 +13,10 @@ public interface SubwayRepository {
     void delete(Subway subway);
 
     List<Subway> findEmployees();
+
+    Subway getById(Long id);
+
+    Subway getByCity(String city);
+
+    Subway getFullSubway();
 }
